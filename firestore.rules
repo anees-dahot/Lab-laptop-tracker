@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Laptops - anyone can read, anyone can update (trusted lab environment)
+    match /laptops/{laptopId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+    
+    // Logs - anyone can read and create (append-only for tracking)
+    match /logs/{logId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+    
+    // Settings - anyone can read, no client writes (admin changes via console or dashboard)
+    match /settings/{doc} {
+      allow read, write: if true;
+    }
+  }
+}
