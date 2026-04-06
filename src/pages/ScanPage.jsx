@@ -21,7 +21,10 @@ function ScanPage() {
   const [justTook, setJustTook] = useState(false)
 
   useEffect(() => {
-    if (!laptopId) return
+    if (!laptopId) {
+      window.location.href = '/admin'
+      return
+    }
     fetchLaptop()
   }, [laptopId])
 
