@@ -110,7 +110,7 @@ function ScanPage() {
     }
 
     if (enteredId !== laptop.takenBy?.studentId) {
-      setMessage({ type: 'error', text: 'This laptop was taken by a different student. Please contact admin.' })
+      setMessage({ type: 'error', text: 'This laptop was taken with a different CNIC. Please contact admin.' })
       return
     }
 
@@ -238,7 +238,7 @@ function ScanPage() {
     <div className="scan-container">
       <div className="scan-card">
         <h2 className="scan-title">{laptop.name}</h2>
-        <p className="scan-subtitle">Lab Laptop Tracking System</p>
+        <p className="scan-subtitle">Udaar Academy — Hala Campus</p>
 
         {/* Message Display */}
         {message.text && (
@@ -280,13 +280,13 @@ function ScanPage() {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Student ID</label>
+                <label className="form-label">CNIC Number</label>
                 <input
                   type="text"
                   className="form-input"
                   value={studentId}
-                  onChange={(e) => setStudentId(e.target.value.toUpperCase())}
-                  placeholder="e.g., 2023-AI-01"
+                  onChange={(e) => setStudentId(e.target.value.replace(/[^0-9-]/g, ''))}
+                  placeholder="e.g., 42101-1234567-1"
                   disabled={processing}
                 />
               </div>
@@ -334,13 +334,13 @@ function ScanPage() {
 
             <form onSubmit={handleReturn}>
               <div className="form-group">
-                <label className="form-label">Enter Your Student ID to Return</label>
+                <label className="form-label">Enter Your CNIC to Return</label>
                 <input
                   type="text"
                   className="form-input"
                   value={returnStudentId}
-                  onChange={(e) => setReturnStudentId(e.target.value.toUpperCase())}
-                  placeholder="e.g., 2023-AI-01"
+                  onChange={(e) => setReturnStudentId(e.target.value.replace(/[^0-9-]/g, ''))}
+                  placeholder="e.g., 42101-1234567-1"
                   disabled={processing}
                   autoFocus
                 />

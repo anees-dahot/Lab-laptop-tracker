@@ -25,7 +25,7 @@ function AdminLogin({ onLogin }) {
     <div className="scan-container">
       <div className="scan-card" style={{ maxWidth: '380px' }}>
         <h2 className="scan-title">🔒 Admin Access</h2>
-        <p className="scan-subtitle">Enter admin password to continue</p>
+        <p className="scan-subtitle">Udaar Academy — Hala Campus</p>
 
         {error && (
           <div className="status-box taken-other mb-4">

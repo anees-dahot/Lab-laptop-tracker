@@ -162,7 +162,7 @@ function AdminPage() {
       return {
         'Laptop Name': log.laptopName,
         'Student Name': log.studentName,
-        'Student ID': log.studentId,
+        'CNIC': log.studentId,
         'Action': log.action === 'taken' ? 'Taken' : log.action === 'force_return' ? 'Force Return' : 'Returned',
         'Date': logTime.toLocaleDateString('en-PK', { year: 'numeric', month: '2-digit', day: '2-digit' }),
         'Time': logTime.toLocaleTimeString('en-PK', { hour: '2-digit', minute: '2-digit', hour12: true })
@@ -227,7 +227,7 @@ function AdminPage() {
       <header className="header no-print">
         <div className="container header-content">
           <div className="logo">
-            🖥️ Lab Laptop Tracker
+            🖥️ Udaar Academy — Hala Campus
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <span className="admin-badge">Admin</span>
@@ -402,7 +402,7 @@ function AdminPage() {
             <input
               type="text"
               className="form-input"
-              placeholder="🔍 Search name, ID, laptop..."
+              placeholder="🔍 Search name, CNIC, laptop..."
               value={filterSearch}
               onChange={(e) => setFilterSearch(e.target.value)}
               style={{ flex: 1, minWidth: '200px', padding: '8px 12px', fontSize: '14px' }}
