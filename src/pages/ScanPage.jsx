@@ -52,10 +52,17 @@ function ScanPage() {
   async function handleTake(e) {
     e.preventDefault()
     const trimmedName = name.trim()
-    const trimmedId = studentId.trim().toUpperCase()
-    
+    const trimmedId = studentId.trim()
+
     if (!trimmedName || !trimmedId) {
-      setMessage({ type: 'error', text: 'Please enter your name and student ID' })
+      setMessage({ type: 'error', text: 'Please enter your name and CNIC number' })
+      return
+    }
+
+    // CNIC format validation: XXXXX-XXXXXXX-X
+    const cnicRegex = /^\d{5}-\d{7}-\d$/
+    if (!cnicRegex.test(trimmedId)) {
+      setMessage({ type: 'error', text: 'Invalid CNIC format. Use: XXXXX-XXXXXXX-X (e.g., 42101-1234567-1)' })
       return
     }
 
@@ -102,10 +109,16 @@ function ScanPage() {
 
   async function handleReturn(e) {
     e.preventDefault()
-    const enteredId = returnStudentId.trim().toUpperCase()
+    const enteredId = returnStudentId.trim()
 
     if (!enteredId) {
-      setMessage({ type: 'error', text: 'Please enter your student ID' })
+      setMessage({ type: 'error', text: 'Please enter your CNIC number' })
+      return
+    }
+
+    const cnicRegex = /^\d{5}-\d{7}-\d$/
+    if (!cnicRegex.test(enteredId)) {
+      setMessage({ type: 'error', text: 'Invalid CNIC format. Use: XXXXX-XXXXXXX-X' })
       return
     }
 
@@ -285,9 +298,16 @@ function ScanPage() {
                   type="text"
                   className="form-input"
                   value={studentId}
-                  onChange={(e) => setStudentId(e.target.value.replace(/[^0-9-]/g, ''))}
-                  placeholder="e.g., 42101-1234567-1"
+                  onChange={(e) => {
+                    let val = e.target.value.replace(/[^0-9]/g, '')
+                    if (val.length > 5) val = val.slice(0, 5) + '-' + val.slice(5)
+                    if (val.length > 13) val = val.slice(0, 13) + '-' + val.slice(13)
+                    if (val.length > 15) val = val.slice(0, 15)
+                    setStudentId(val)
+                  }}
+                  placeholder="42101-1234567-1"
                   disabled={processing}
+                  maxLength={15}
                 />
               </div>
 
@@ -339,9 +359,16 @@ function ScanPage() {
                   type="text"
                   className="form-input"
                   value={returnStudentId}
-                  onChange={(e) => setReturnStudentId(e.target.value.replace(/[^0-9-]/g, ''))}
-                  placeholder="e.g., 42101-1234567-1"
+                  onChange={(e) => {
+                    let val = e.target.value.replace(/[^0-9]/g, '')
+                    if (val.length > 5) val = val.slice(0, 5) + '-' + val.slice(5)
+                    if (val.length > 13) val = val.slice(0, 13) + '-' + val.slice(13)
+                    if (val.length > 15) val = val.slice(0, 15)
+                    setReturnStudentId(val)
+                  }}
+                  placeholder="42101-1234567-1"
                   disabled={processing}
+                  maxLength={15}
                   autoFocus
                 />
               </div>
